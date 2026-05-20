@@ -1,0 +1,51 @@
+services:
+  devcontainer:
+    image: maven:3.9-eclipse-temurin-21
+    working_dir: /workspace
+    volumes:
+      - .:/workspace:cached
+      - ${DOCKER_VOLUMES_ROOT_DIR}/maven_cache:/root/.m2
+    command: sleep infinity
+    environment:
+      POSTGRES_HOST: postgresql
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      postgresql:
+        condition: service_started
+      redis:
+        condition: service_started
+
+  postgresql:
+    image: postgres:17.2-alpine3.20
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ${DOCKER_VOLUMES_ROOT_DIR}/postgresql_volume/data:/var/lib/postgresql/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis:
+    image: redis:7.4-alpine
+    restart: always
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${DOCKER_VOLUMES_ROOT_DIR}/redis_volume/data:/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

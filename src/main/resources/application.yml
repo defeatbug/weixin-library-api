@@ -1,0 +1,58 @@
+server:
+  port: ${APP_PORT:8080}
+
+spring:
+  application:
+    name: ${APP_NAME:weixin-library-api}
+  profiles:
+    active: ${APP_ENV:dev}
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB_NAME:weixin_library}
+    username: ${POSTGRES_USER:weixin}
+    password: ${POSTGRES_PASSWORD:weixin123}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    schema:
+      locations: classpath:graphql/
+    cors:
+      allowed-origins: "*"
+
+app:
+  jwt:
+    secret: weixin-library-jwt-secret-key-must-be-at-least-256-bits-long
+    expiration-ms: 2592000000 # 30 days
+
+  file:
+    upload-dir: ./uploads/books
+    max-file-size: 104857600 # 100MB
+
+  admin:
+    default-email: admin@weixin.library
+    default-password: admin123

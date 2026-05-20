@@ -1,0 +1,16 @@
+{
+  "name": "weixin-library-api",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [8080, 5432, 6379],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "graphql.vscode-graphql"
+      ]
+    }
+  },
+  "postCreateCommand": "mvn clean install -DskipTests -U"
+}

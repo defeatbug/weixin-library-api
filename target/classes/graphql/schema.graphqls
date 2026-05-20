@@ -1,0 +1,147 @@
+type Query {
+    # Auth
+    currentUser: User
+
+    # Books
+    books(page: Int = 0, size: Int = 20, sortBy: String = "createdAt", sortDir: String = "desc"): BookPage!
+    book(id: ID!): Book
+    searchBooks(query: String!, page: Int = 0, size: Int = 20): BookPage!
+
+    # Bookshelf
+    myBookshelf: [BookshelfItem!]!
+
+    # Reviews
+    reviewsByBook(bookId: ID!, page: Int = 0, size: Int = 20): ReviewPage!
+    myReviews(page: Int = 0, size: Int = 20): ReviewPage!
+
+    # Reading Progress
+    readingProgress(bookId: ID!): ReadingProgress
+}
+
+type Mutation {
+    # Auth
+    login(email: String!, password: String!): AuthPayload!
+    register(email: String!, password: String!, displayName: String!): AuthPayload!
+
+    # Books (Admin)
+    createBook(input: CreateBookInput!): Book!
+    updateBook(id: ID!, input: UpdateBookInput!): Book!
+    deleteBook(id: ID!): Boolean!
+
+    # Bookshelf
+    addToBookshelf(bookId: ID!): BookshelfItem!
+    removeFromBookshelf(bookId: ID!): Boolean!
+
+    # Reviews
+    createReview(bookId: ID!, rating: Int!, content: String): Review!
+    updateReview(id: ID!, rating: Int, content: String): Review!
+    deleteReview(id: ID!): Boolean!
+
+    # Reading Progress
+    saveReadingProgress(bookId: ID!, chapterId: String, chapterTitle: String, pageOffset: Int, percentage: Float!): ReadingProgress!
+}
+
+# ---- Types ----
+
+type User {
+    id: ID!
+    email: String!
+    displayName: String!
+    avatarUrl: String
+    role: String!
+    bookshelfCount: Int!
+    reviewCount: Int!
+}
+
+type AuthPayload {
+    user: User!
+    authToken: String!
+}
+
+type Book {
+    id: ID!
+    title: String!
+    author: String!
+    isbn: String
+    coverUrl: String
+    fileUrl: String!
+    fileType: String!
+    description: String
+    publisher: String
+    publishedAt: String
+    language: String
+    fileSizeBytes: Float!
+    averageRating: Float
+    reviewCount: Int!
+    createdAt: String!
+}
+
+type BookshelfItem {
+    id: ID!
+    book: Book!
+    addedAt: String!
+    sortOrder: Int!
+}
+
+type Review {
+    id: ID!
+    user: User!
+    book: Book!
+    rating: Int!
+    content: String
+    createdAt: String!
+    updatedAt: String!
+}
+
+type ReadingProgress {
+    bookId: ID!
+    currentChapterId: String
+    currentChapterTitle: String
+    pageOffset: Int
+    percentage: Float!
+    updatedAt: String!
+}
+
+type BookPage {
+    items: [Book!]!
+    total: Float!
+    page: Int!
+    size: Int!
+}
+
+type ReviewPage {
+    items: [Review!]!
+    total: Float!
+    page: Int!
+    size: Int!
+}
+
+# ---- Inputs ----
+
+input CreateBookInput {
+    title: String!
+    author: String!
+    isbn: String
+    coverUrl: String
+    fileUrl: String!
+    fileType: String!
+    description: String
+    publisher: String
+    publishedAt: String
+    language: String
+    fileSizeBytes: Float!
+}
+
+input UpdateBookInput {
+    title: String
+    author: String
+    isbn: String
+    coverUrl: String
+    fileUrl: String
+    fileType: String
+    description: String
+    publisher: String
+    publishedAt: String
+    language: String
+    fileSizeBytes: Float
+}
