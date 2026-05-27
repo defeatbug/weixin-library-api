@@ -3,8 +3,10 @@
 /workspace/src/main/java/com/weixinlibrary/config/CorsConfig.java
 /workspace/src/main/java/com/weixinlibrary/config/DataInitializer.java
 /workspace/src/main/java/com/weixinlibrary/config/SecurityConfig.java
+/workspace/src/main/java/com/weixinlibrary/controller/TestController.java
 /workspace/src/main/java/com/weixinlibrary/dto/AuthPayload.java
 /workspace/src/main/java/com/weixinlibrary/dto/BookPageInput.java
+/workspace/src/main/java/com/weixinlibrary/dto/CreateBookInput.java
 /workspace/src/main/java/com/weixinlibrary/dto/LoginInput.java
 /workspace/src/main/java/com/weixinlibrary/dto/PageResponse.java
 /workspace/src/main/java/com/weixinlibrary/dto/RegisterInput.java
@@ -20,6 +22,7 @@
 /workspace/src/main/java/com/weixinlibrary/graphql/BookshelfResolver.java
 /workspace/src/main/java/com/weixinlibrary/graphql/ReadingProgressResolver.java
 /workspace/src/main/java/com/weixinlibrary/graphql/ReviewResolver.java
+/workspace/src/main/java/com/weixinlibrary/graphql/TestResolver.java
 /workspace/src/main/java/com/weixinlibrary/graphql/UserResolver.java
 /workspace/src/main/java/com/weixinlibrary/repository/BookRepository.java
 /workspace/src/main/java/com/weixinlibrary/repository/BookshelfItemRepository.java
