@@ -1,5 +1,6 @@
 package com.weixinlibrary.graphql;
 
+import com.weixinlibrary.dto.CreateBookInput;
 import com.weixinlibrary.dto.PageResponse;
 import com.weixinlibrary.entity.Book;
 import com.weixinlibrary.service.BookService;
@@ -41,7 +42,19 @@ public class BookResolver {
 
     @MutationMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public Book createBook(@Argument("input") Book book) {
+    public Book createBook(@Argument("input") CreateBookInput input) {
+        Book book = new Book();
+        book.setTitle(input.getTitle());
+        book.setAuthor(input.getAuthor());
+        book.setIsbn(input.getIsbn());
+        book.setCoverUrl(input.getCoverUrl());
+        book.setFileUrl(input.getFileUrl());
+        book.setFileType(Book.BookFileType.valueOf(input.getFileType()));
+        book.setDescription(input.getDescription());
+        book.setPublisher(input.getPublisher());
+        book.setPublishedAt(input.getPublishedAt());
+        book.setLanguage(input.getLanguage());
+        book.setFileSizeBytes(input.getFileSizeBytes());
         return bookService.createBook(book);
     }
 

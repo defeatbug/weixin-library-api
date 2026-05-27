@@ -27,7 +27,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "5445:5432"
     volumes:
       - ${DOCKER_VOLUMES_ROOT_DIR}/postgresql_volume/data:/var/lib/postgresql/data
     logging:
@@ -41,7 +41,7 @@ services:
     restart: always
     command: redis-server --appendonly yes
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - ${DOCKER_VOLUMES_ROOT_DIR}/redis_volume/data:/data
     logging:
