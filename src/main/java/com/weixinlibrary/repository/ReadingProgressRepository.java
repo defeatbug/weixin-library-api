@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ReadingProgressRepository extends JpaRepository<ReadingProgress, Long> {
-    Optional<ReadingProgress> findByUserIdAndBookId(Long userId, Long bookId);
+    Optional<ReadingProgress> findByUser_IdAndBook_Id(Long userId, Long bookId);
 }

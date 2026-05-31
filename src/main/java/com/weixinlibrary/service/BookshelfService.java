@@ -23,12 +23,12 @@ public class BookshelfService {
     private final UserRepository userRepository;
 
     public List<BookshelfItem> getBookshelf(Long userId) {
-        return bookshelfItemRepository.findByUserIdOrderBySortOrderAsc(userId);
+        return bookshelfItemRepository.findByUser_IdOrderBySortOrderAsc(userId);
     }
 
     @Transactional
     public BookshelfItem addToBookshelf(Long userId, Long bookId) {
-        if (bookshelfItemRepository.existsByUserIdAndBookId(userId, bookId)) {
+        if (bookshelfItemRepository.existsByUser_IdAndBook_Id(userId, bookId)) {
             throw new RuntimeException("Book already in bookshelf");
         }
 
@@ -37,7 +37,7 @@ public class BookshelfService {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new RuntimeException("Book not found"));
 
-        int count = bookshelfItemRepository.countByUserId(userId);
+        int count = bookshelfItemRepository.countByUser_Id(userId);
 
         BookshelfItem item = new BookshelfItem();
         item.setUser(user);
@@ -49,12 +49,12 @@ public class BookshelfService {
 
     @Transactional
     public void removeFromBookshelf(Long userId, Long bookId) {
-        bookshelfItemRepository.deleteByUserIdAndBookId(userId, bookId);
+        bookshelfItemRepository.deleteByUser_IdAndBook_Id(userId, bookId);
     }
 
     @Transactional
     public List<BookshelfItem> reorderBookshelf(Long userId, List<Long> bookIds) {
-        List<BookshelfItem> items = bookshelfItemRepository.findByUserIdOrderBySortOrderAsc(userId);
+        List<BookshelfItem> items = bookshelfItemRepository.findByUser_IdOrderBySortOrderAsc(userId);
         for (int i = 0; i < bookIds.size(); i++) {
             Long bookId = bookIds.get(i);
             int sortOrder = i;

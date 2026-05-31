@@ -16,9 +16,13 @@ type Query {
     # Reviews
     reviewsByBook(bookId: ID!, page: Int = 0, size: Int = 20): ReviewPage!
     myReviews(page: Int = 0, size: Int = 20): ReviewPage!
+    recentReviews(page: Int = 0, size: Int = 20): ReviewPage!
 
     # Reading Progress
     readingProgress(bookId: ID!): ReadingProgress
+
+    # User Stats
+    myStats: MyStats
 }
 
 type Mutation {
@@ -117,6 +121,12 @@ type ReviewPage {
     total: Float!
     page: Int!
     size: Int!
+}
+
+type MyStats {
+    bookshelfCount: Int!
+    reviewCount: Int!
+    booksReadingCount: Int!
 }
 
 # ---- Inputs ----

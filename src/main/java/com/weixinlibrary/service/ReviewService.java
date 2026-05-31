@@ -22,11 +22,11 @@ public class ReviewService {
     private final UserRepository userRepository;
 
     public Page<Review> getReviewsByBook(Long bookId, int page, int size) {
-        return reviewRepository.findByBookIdOrderByCreatedAtDesc(bookId, PageRequest.of(page, size));
+        return reviewRepository.findByBook_IdOrderByCreatedAtDesc(bookId, PageRequest.of(page, size));
     }
 
     public Page<Review> getMyReviews(Long userId, int page, int size) {
-        return reviewRepository.findByUserIdOrderByCreatedAtDesc(userId, PageRequest.of(page, size));
+        return reviewRepository.findByUser_IdOrderByCreatedAtDesc(userId, PageRequest.of(page, size));
     }
 
     public Double getAverageRating(Long bookId) {
@@ -34,7 +34,11 @@ public class ReviewService {
     }
 
     public int getReviewCount(Long bookId) {
-        return reviewRepository.countByBookId(bookId);
+        return reviewRepository.countByBook_Id(bookId);
+    }
+
+    public Page<Review> getRecentReviews(int page, int size) {
+        return reviewRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(page, size));
     }
 
     @Transactional
