@@ -34,6 +34,14 @@ public class BookResolver {
     }
 
     @QueryMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public PageResponse<Book> adminBooks(@Argument int page, @Argument int size,
+                                         @Argument String search) {
+        Page<Book> result = bookService.adminSearchBooks(search, page, size);
+        return PageResponse.from(result, result.getContent());
+    }
+
+    @QueryMapping
     public PageResponse<Book> searchBooks(@Argument String query,
                                           @Argument int page, @Argument int size) {
         Page<Book> result = bookService.searchBooks(query, page, size);

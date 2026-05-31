@@ -26,6 +26,15 @@ public class BookService {
         return bookRepository.findByTitleContainingIgnoreCase(query, pageable);
     }
 
+    public Page<Book> adminSearchBooks(String search, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        if (search == null || search.isBlank()) {
+            return bookRepository.findAll(pageable);
+        }
+        return bookRepository.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(
+                search, search, pageable);
+    }
+
     public Book getBook(Long id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Book not found: " + id));

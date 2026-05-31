@@ -23,6 +23,10 @@ type Query {
 
     # User Stats
     myStats: MyStats
+
+    # Admin
+    adminBooks(page: Int = 0, size: Int = 20, search: String): BookPage!
+    adminUsers(page: Int = 0, size: Int = 20, search: String): UserPage!
 }
 
 type Mutation {
@@ -111,6 +115,13 @@ type ReadingProgress {
 
 type BookPage {
     items: [Book!]!
+    total: Float!
+    page: Int!
+    size: Int!
+}
+
+type UserPage {
+    items: [User!]!
     total: Float!
     page: Int!
     size: Int!
