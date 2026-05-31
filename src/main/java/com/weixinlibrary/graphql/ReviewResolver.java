@@ -32,6 +32,12 @@ public class ReviewResolver {
         return PageResponse.from(result, result.getContent());
     }
 
+    @QueryMapping
+    public PageResponse<Review> recentReviews(@Argument int page, @Argument int size) {
+        Page<Review> result = reviewService.getRecentReviews(page, size);
+        return PageResponse.from(result, result.getContent());
+    }
+
     @MutationMapping
     public Review createReview(@Argument Long bookId, @Argument int rating,
                                @Argument String content, Authentication authentication) {

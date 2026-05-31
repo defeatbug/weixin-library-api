@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface BookshelfItemRepository extends JpaRepository<BookshelfItem, Long> {
-    List<BookshelfItem> findByUserIdOrderBySortOrderAsc(Long userId);
-    Optional<BookshelfItem> findByUserIdAndBookId(Long userId, Long bookId);
-    boolean existsByUserIdAndBookId(Long userId, Long bookId);
-    void deleteByUserIdAndBookId(Long userId, Long bookId);
-    int countByUserId(Long userId);
+    List<BookshelfItem> findByUser_IdOrderBySortOrderAsc(Long userId);
+    Optional<BookshelfItem> findByUser_IdAndBook_Id(Long userId, Long bookId);
+    boolean existsByUser_IdAndBook_Id(Long userId, Long bookId);
+    void deleteByUser_IdAndBook_Id(Long userId, Long bookId);
+    int countByUser_Id(Long userId);
 }

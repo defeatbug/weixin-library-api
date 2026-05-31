@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    Page<Review> findByBookIdOrderByCreatedAtDesc(Long bookId, Pageable pageable);
-    Page<Review> findByUserIdOrderByCreatedAtDesc(Long userId, Pageable pageable);
+    Page<Review> findByBook_IdOrderByCreatedAtDesc(Long bookId, Pageable pageable);
+    Page<Review> findByUser_IdOrderByCreatedAtDesc(Long userId, Pageable pageable);
+    Page<Review> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
     @Query("SELECT AVG(r.rating) FROM Review r WHERE r.book.id = :bookId")
     Double findAverageRatingByBookId(Long bookId);
 
-    int countByBookId(Long bookId);
-    int countByUserId(Long userId);
+    int countByBook_Id(Long bookId);
+    int countByUser_Id(Long userId);
 }

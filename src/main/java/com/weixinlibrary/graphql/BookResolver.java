@@ -41,7 +41,6 @@ public class BookResolver {
     }
 
     @MutationMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public Book createBook(@Argument("input") CreateBookInput input) {
         Book book = new Book();
         book.setTitle(input.getTitle());

@@ -10,6 +10,8 @@ import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
+import java.util.Map;
+
 @Controller
 @RequiredArgsConstructor
 public class UserResolver {
@@ -25,13 +27,26 @@ public class UserResolver {
         return authService.getCurrentUser(userId);
     }
 
+    @QueryMapping
+    public Map<String, Integer> myStats(Authentication authentication) {
+        if (authentication == null) return null;
+        Long userId = (Long) authentication.getDetails();
+        int bookshelfCount = bookshelfItemRepository.countByUser_Id(userId);
+        int reviewCount = reviewRepository.countByUser_Id(userId);
+        return Map.of(
+            "bookshelfCount", bookshelfCount,
+            "reviewCount", reviewCount,
+            "booksReadingCount", bookshelfCount
+        );
+    }
+
     @SchemaMapping(typeName = "User", field = "bookshelfCount")
     public int bookshelfCount(User user) {
-        return bookshelfItemRepository.countByUserId(user.getId());
+        return bookshelfItemRepository.countByUser_Id(user.getId());
     }
 
     @SchemaMapping(typeName = "User", field = "reviewCount")
     public int reviewCount(User user) {
-        return reviewRepository.countByUserId(user.getId());
+        return reviewRepository.countByUser_Id(user.getId());
     }
 }

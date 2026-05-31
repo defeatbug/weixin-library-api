@@ -22,14 +22,14 @@ public class ReadingProgressService {
     private final UserRepository userRepository;
 
     public ReadingProgress getProgress(Long userId, Long bookId) {
-        return readingProgressRepository.findByUserIdAndBookId(userId, bookId).orElse(null);
+        return readingProgressRepository.findByUser_IdAndBook_Id(userId, bookId).orElse(null);
     }
 
     @Transactional
     public ReadingProgress saveProgress(Long userId, Long bookId, String chapterId,
                                          String chapterTitle, Integer pageOffset, Double percentage) {
         ReadingProgress progress = readingProgressRepository
-                .findByUserIdAndBookId(userId, bookId)
+                .findByUser_IdAndBook_Id(userId, bookId)
                 .orElseGet(() -> {
                     ReadingProgress newProgress = new ReadingProgress();
                     User user = userRepository.findById(userId)
