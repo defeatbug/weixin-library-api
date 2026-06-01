@@ -29,16 +29,16 @@ public class ReviewService {
         return reviewRepository.findByUser_IdOrderByCreatedAtDesc(userId, PageRequest.of(page, size));
     }
 
+    public Page<Review> getRecentReviews(int page, int size) {
+        return reviewRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(page, size));
+    }
+
     public Double getAverageRating(Long bookId) {
         return reviewRepository.findAverageRatingByBookId(bookId);
     }
 
     public int getReviewCount(Long bookId) {
         return reviewRepository.countByBook_Id(bookId);
-    }
-
-    public Page<Review> getRecentReviews(int page, int size) {
-        return reviewRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(page, size));
     }
 
     @Transactional

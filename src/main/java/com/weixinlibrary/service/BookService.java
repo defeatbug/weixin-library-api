@@ -31,18 +31,29 @@ public class BookService {
         if (search == null || search.isBlank()) {
             return bookRepository.findAll(pageable);
         }
-        return bookRepository.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(
-                search, search, pageable);
+        return bookRepository.searchBooks(search.trim(), pageable);
     }
 
     public Book getBook(Long id) {
-        return bookRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found: " + id));
+        return bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found: " + id));
     }
 
     @Transactional
     public Book createBook(Book book) {
+        applyDefaultCoverUrl(book);
         return bookRepository.save(book);
+    }
+
+    private void applyDefaultCoverUrl(Book book) {
+        if (book.getCoverUrl() != null && !book.getCoverUrl().isBlank()) {
+            return;
+        }
+        if (book.getFileUrl() == null || book.getFileType() == null) {
+            return;
+        }
+        if (book.getFileType() == Book.BookFileType.EPUB) {
+            book.setCoverUrl(book.getFileUrl() + "/cover");
+        }
     }
 
     @Transactional
