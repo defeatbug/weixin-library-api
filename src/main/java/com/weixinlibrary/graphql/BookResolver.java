@@ -49,6 +49,7 @@ public class BookResolver {
     }
 
     @MutationMapping
+    @PreAuthorize("isAuthenticated()")
     public Book createBook(@Argument("input") CreateBookInput input) {
         Book book = new Book();
         book.setTitle(input.getTitle());

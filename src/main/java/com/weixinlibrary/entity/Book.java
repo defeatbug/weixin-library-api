@@ -49,6 +49,6 @@ public class Book extends BaseEntity {
     private Long fileSizeBytes = 0L;
 
     public enum BookFileType {
-        EPUB, PDF
+        EPUB, PDF, TXT, MOBI
     }
 }

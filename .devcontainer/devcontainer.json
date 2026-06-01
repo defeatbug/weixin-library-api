@@ -6,6 +6,12 @@
   "forwardPorts": [8080, 5445, 6380],
   "customizations": {
     "vscode": {
+      "settings": {
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "remote.localPortHost": "allInterfaces"
+      },
       "extensions": [
         "vscjava.vscode-java-pack",
         "graphql.vscode-graphql"

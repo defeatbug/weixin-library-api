@@ -6,7 +6,11 @@ services:
       - .:/workspace:cached
       - ${DOCKER_VOLUMES_ROOT_DIR}/maven_cache:/root/.m2
     command: sleep infinity
+    env_file:
+      - .env
     environment:
+      APP_ENV: ${APP_ENV:-dev}
+      JWT_SECRET: ${JWT_SECRET:-weixin-library-jwt-secret-key-must-be-at-least-256-bits-long}
       POSTGRES_HOST: postgresql
       POSTGRES_PORT: 5432
       POSTGRES_USER: ${POSTGRES_USER}

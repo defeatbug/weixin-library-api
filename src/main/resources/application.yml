@@ -6,6 +6,9 @@ spring:
     name: ${APP_NAME:weixin-library-api}
   profiles:
     active: ${APP_ENV:dev}
+    group:
+      development:
+        - dev
 
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB_NAME:weixin_library}
@@ -46,8 +49,8 @@ spring:
 
 app:
   jwt:
-    secret: weixin-library-jwt-secret-key-must-be-at-least-256-bits-long
-    expiration-ms: 2592000000 # 30 days
+    secret: ${JWT_SECRET:weixin-library-jwt-secret-key-must-be-at-least-256-bits-long}
+    expiration-ms: ${JWT_EXPIRATION_MS:2592000000} # 30 days
 
   file:
     upload-dir: ./uploads/books

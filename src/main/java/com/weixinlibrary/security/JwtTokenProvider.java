@@ -16,8 +16,12 @@ public class JwtTokenProvider {
     private final long expirationMs;
 
     public JwtTokenProvider(
-            @Value("${app.jwt.secret}") String secret,
-            @Value("${app.jwt.expiration-ms}") long expirationMs) {
+            @Value("${app.jwt.secret:weixin-library-jwt-secret-key-must-be-at-least-256-bits-long}") String secret,
+            @Value("${app.jwt.expiration-ms:2592000000}") long expirationMs) {
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalStateException(
+                    "JWT secret 未配置，请设置环境变量 JWT_SECRET 或 application.yml 中的 app.jwt.secret");
+        }
         this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(
                 java.util.Base64.getEncoder().encodeToString(secret.getBytes())));
         this.expirationMs = expirationMs;

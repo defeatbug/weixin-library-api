@@ -1,0 +1,12 @@
+# APP_ENV=development 时自动激活 dev 配置（见 application.yml profiles.group）
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    com.weixinlibrary: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
